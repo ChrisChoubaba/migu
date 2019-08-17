@@ -7,6 +7,7 @@
 | /login        | Login  |
 | /register        | register  |
 | /city        | city  |
+| /wallet        | wallet  |
 
 二级路由：
 
