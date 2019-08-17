@@ -1,29 +1,16 @@
-# migu
+## 咪咕影院
+一级路由：
 
-## Project setup
-```
-npm install
-```
+| 路径          | 组件名 |
+| ------------- | ------ |
+| /             | Home   |
+| /login        | Login  |
+| /register        | register  |
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+二级路由：
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+| 路径     | 组件名  | 他的父级 |
+| -------- | ------- | -------- |
+| /watch   | watch   | /        |
+| /bookTicket | bookTicket | /        |
+| /personCenter  | personCenter  | /        |
