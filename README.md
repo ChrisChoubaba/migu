@@ -6,6 +6,7 @@
 | /             | Home   |
 | /login        | Login  |
 | /register        | register  |
+| /city        | city  |
 
 二级路由：
 
