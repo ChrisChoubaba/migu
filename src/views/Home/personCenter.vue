@@ -25,7 +25,7 @@
           <span class="iconfont icon-icon"></span>
         </router-link>
         <!-- 我的钱包 -->
-        <router-link to="/login" class="myWallet">
+        <router-link to="/wallet" class="myWallet">
           <div class="wallet-l">
             <span class="iconfont icon-wodeqianbao"></span>
             <span>我的钱包</span>
