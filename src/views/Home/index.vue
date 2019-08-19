@@ -23,7 +23,7 @@ export default {
   }
 }
 </script>
-style-<style lang="scss">
+<style lang="scss">
 .page-home {
   display: flex;
   flex-direction: column;

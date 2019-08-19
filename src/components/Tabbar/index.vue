@@ -26,9 +26,9 @@ export default {
 .mg-tabbar {
   @include border-top;
   display: flex;
-  height: 50px;
+  height: 54px;
   box-sizing: border-box;
-
+  padding-top: 8px;
   li {
     flex: 1;
   }
@@ -48,10 +48,8 @@ export default {
       }
     &.router-link-active {
       color: #ff5f16;
-
     }
   }
-
   .iconfont {
     font-size: 22px;
   }
