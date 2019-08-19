@@ -17,7 +17,9 @@
     </div>
     <div class="home-nav">
       <van-tabs v-model="activeName" title-active-color="#F74444">
-        <van-tab title="推荐" name="a">1</van-tab>
+        <van-tab title="推荐" name="a">
+          <Nav></Nav>
+        </van-tab>
         <van-tab title="免费看片" name="b">内容 2</van-tab>
         <van-tab title="影单" name="c">内容 3</van-tab>
         <van-tab title="影评" name="d">内容 4</van-tab>
@@ -30,8 +32,7 @@
 </template>
 <script>
 import Nav from '../../components/Nav/index.vue'
-import Swiper from 'swiper'
-import 'swiper/dist/css/swiper.css'
+
 export default {
   name: 'Home',
   data() {
@@ -41,7 +42,9 @@ export default {
   },
   components: {
     Nav
-  }
+  },
+  methods: {},
+  mounted() {}
 }
 </script>
 <style lang="scss" >
