@@ -1,5 +1,5 @@
 <template>
-  <div  class="page-home">
+  <div class="page-home">
     <router-view />
     <Tabbar :tabs="tabs" />
   </div>
@@ -14,11 +14,10 @@ export default {
   data() {
     return {
       tabs: [
-        { id: 1, name: '看片', icon: 'icon-watch', href: '/watch'},
-        { id: 2, name: '购票', icon: 'icon-buy', href: '/bookTicket'},
-        { id: 3, name: '我的', icon: 'icon-my', href: '/personCenter'}
+        { id: 1, name: '看片', icon: 'icon-watch', href: '/watch' },
+        { id: 2, name: '购票', icon: 'icon-buy', href: '/bookTicket' },
+        { id: 3, name: '我的', icon: 'icon-my', href: '/personCenter' }
       ]
-      
     }
   }
 }
