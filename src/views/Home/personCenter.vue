@@ -55,7 +55,6 @@
           <span class="iconfont icon-icon"></span>
         </router-link>
       </div>
-      
       <div class="blank-area"></div>
       <!-- 商城和约票 -->
       <div class="mall-tick" >
@@ -276,5 +275,4 @@ style-<style lang="scss">
     color: #999;
   }
 }
-
 </style>
