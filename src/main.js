@@ -4,12 +4,17 @@ import router from './router'
 import store from './store'
 import { Tab, Tabs } from 'vant'
 import './assets/style/base.scss'
-Vue.config.productionTip = false
-import 'vant/lib/index.css'
 
+import 'vant/lib/index.css'
+import 'element-ui/lib/theme-chalk/index.css'
+
+Vue.config.productionTip = false
+
+Vue.config.productionTip = false
 Vue.use(Tab).use(Tabs)
+
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

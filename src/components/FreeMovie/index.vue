@@ -1,5 +1,5 @@
 <template>
-  <div class="home-nav">
+  <div class="freeMovie">
     <div class="nav-one">
       <div class="swiper-container swiper1">
         <div class="swiper-wrapper mycolor">
@@ -9,6 +9,7 @@
             </a>
           </div>
         </div>
+        <div class="swiper-pagination"></div>
       </div>
     </div>
     <div class="nav-two">
@@ -54,10 +55,11 @@ export default {
   methods: {
     initSwiper() {
       var Myswiper1 = new Swiper('.swiper1', {
-        loop: true,
-        effect: 'coverflow',
-        slidesPerView: 2,
-        centeredSlides: true
+        slidesPerView: 1,
+        // 如果需要分页器
+        pagination: {
+          el: '.swiper-pagination'
+        }
       })
       var Myswiper2 = new Swiper('.swiper2', {
         slidesPerView: 3
@@ -66,11 +68,10 @@ export default {
         slidesPerView: 1
       })
     },
-    ...mapActions('navImg', ['getNavImg', 'getFreeImg'])
+    ...mapActions('navImg', ['getNavImg'])
   },
-  created() {
+  mounted() {
     this.getNavImg()
-    this.getFreeImg()
   },
   updated() {
     this.initSwiper()
@@ -84,11 +85,11 @@ export default {
   }
   .swiper1 {
     .swiper-wrapper {
-      padding-top: 30px;
-      padding-bottom: 30px;
+      // padding-top: 30px;
+      // padding-bottom: 30px;
       a {
         img {
-          width: 187.5px;
+          width: 100%;
           z-index: -9;
         }
       }

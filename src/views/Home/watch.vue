@@ -17,12 +17,21 @@
     </div>
     <div class="home-nav">
       <van-tabs v-model="activeName" title-active-color="#F74444">
-        <van-tab title="推荐" name="a">
+        <van-tab title="推荐" name="70022794">
           <Nav></Nav>
         </van-tab>
-        <van-tab title="免费看片" name="b">内容 2</van-tab>
-        <van-tab title="影单" name="c">内容 3</van-tab>
-        <van-tab title="影评" name="d">内容 4</van-tab>
+        <van-tab title="免费看片" name="70022795">
+          <FreeMovie />
+        </van-tab>
+        <van-tab title="影单" name="70035127">
+          <MovieList />
+        </van-tab>
+        <van-tab title="小视频" name="70027030">
+          <Video />
+        </van-tab>
+        <van-tab title="影评" name="70022797">
+          <Comment />
+        </van-tab>
       </van-tabs>
       <li>
         <i class="iconfont icon-buy"></i>
@@ -32,6 +41,10 @@
 </template>
 <script>
 import Nav from '../../components/Nav/index.vue'
+import Comment from '../../components/Comment/index.vue'
+import FreeMovie from '../../components/FreeMovie/index.vue'
+import Video from '../../components/Video/index.vue'
+import MovieList from '../../components/MovieList/index.vue'
 
 export default {
   name: 'Home',
@@ -41,7 +54,11 @@ export default {
     }
   },
   components: {
-    Nav
+    Nav,
+    Comment,
+    FreeMovie,
+    Video,
+    MovieList
   },
   methods: {},
   mounted() {}
@@ -78,11 +95,11 @@ export default {
       background: #ffffff;
       position: absolute;
       top: 12px;
-      right: 20px;
+      right: 10px;
     }
   }
   .van-tabs__wrap {
-    padding-right: 30px;
+    padding-right: 50px;
   }
 }
 </style>
