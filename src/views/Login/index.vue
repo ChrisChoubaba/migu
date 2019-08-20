@@ -2,23 +2,37 @@
   <div class="login">
     <header>
       <h1>登录</h1>
-      <span class="iconfont icon-zuojiantou back"></span>
-      <a class="enroll">注册</a>
+      <span class="iconfont icon-zuojiantou back" @click="iconfont"></span>
+      <a class="enroll" @click="enroll">注册</a>
     </header>
     <div class="con">
       <div class="logo"></div>
-      <form class="former">
-        <div class="form_item">
-          <input type="tel" placeholder="手机号/邮箱/用户名" class="text" />
+      <!-- 登录框 -->
+      <div class="former" @submit.prevent="login">
+        <div class="form_item" :class="{active:act_index===1}">
+          <input
+            type="tel"
+            placeholder="手机号/邮箱/用户名"
+            class="text"
+            v-model="text"
+            @focus="act_index=1"
+          />
         </div>
-        <div class="form_item">
-          <input type="tel" placeholder="密码" class="text" />
+        <div class="form_item" :class="{active:act_index===2}">
+          <input
+            type="password"
+            placeholder="密码"
+            class="text"
+            v-model="password"
+            @focus="act_index=2"
+          />
           <em class></em>
         </div>
+        <!-- 登录按钮 -->
         <div class="form_btn">
           <input type="submit" value="登录" class="submit" />
         </div>
-      </form>
+      </div>
     </div>
     <footer class="footer">
       <div class="link_wrap">
@@ -35,7 +49,31 @@
 
 <script>
 export default {
-  name: 'Login'
+  name: 'Login',
+  data() {
+    return {
+      // local: 'false',
+      act_index: 1,
+      text: '', //账号的value
+      password: '' //密码
+    }
+  },
+  methods: {
+    login() {
+      console.log(this.text)
+      console.log(this.password)
+    },
+    enroll() {
+      this.$router.push({
+        path: 'register'
+      })
+    },
+    iconfont() {
+      this.$router.push({
+        path: 'personCenter'
+      })
+    }
+  }
 }
 </script>
 
@@ -106,6 +144,9 @@ export default {
           padding: 0.8125rem 0;
           color: #31363e;
         }
+      }
+      .active {
+        border-bottom: 1px solid #2e8fd7;
       }
       em {
         margin-top: 13px;
