@@ -4,8 +4,10 @@ import router from './router'
 import store from './store'
 import { Tab, Tabs, List, Cell } from 'vant'
 import './assets/style/base.scss'
+// import 'element-ui/lib/theme-chalk/index.css'
+
 import 'vant/lib/index.css'
-import BScroll from 'better-scroll'
+
 Vue.config.productionTip = false
 
 Vue.use(Tab)

@@ -107,62 +107,68 @@ export default {
 </script>
 
 <style lang="scss">
-.header {
-  position: absolute;
-  top: 0;
-  border-bottom: 1px solid #e6e6e6;
-  height: 44px;
-  line-height: 44px;
-  padding: 0;
-  position: relative;
-  // overflow: hidden;
-
-  .left {
-    overflow: hidden;
-    position: absolute;
-    left: 12px;
-    display: inline-block;
-    position: absolute;
-    z-index: 99;
-  }
-  .leftContent {
-    color: #666;
-    font-size: 15px;
-    float: left;
-    background-size: contain;
-  }
-  .icon-huidaodingbu {
-    font-size: 12px;
-    margin-left: 4px;
-    color: #999;
-  }
-  .center {
+.page-home-bookTicket {
+  .header {
     width: 100%;
     position: absolute;
-    top: 6px;
-  }
-  .tit {
-    > div:first-child {
+    top: 0;
+    border-bottom: 1px solid #e6e6e6;
+    height: 44px;
+    line-height: 44px;
+    padding: 0;
+    position: relative;
+    // overflow: hidden;
+
+    .left {
+      overflow: hidden;
+      position: absolute;
+      left: 12px;
+      display: inline-block;
+      position: absolute;
+      z-index: 99;
+    }
+    .leftContent {
+      color: #666;
+      font-size: 15px;
+      float: left;
+      background-size: contain;
+    }
+    .icon-huidaodingbu {
+      font-size: 12px;
+      margin-left: 4px;
+      color: #999;
+    }
+    .center {
+      width: 100%;
+      position: absolute;
+      top: 6px;
+    }
+    .tit {
+      > div:first-child {
+        width: 160px;
+        margin-left: 108px;
+        text-align: center;
+      }
+      > div:first-child {
+        display: flex;
+        justify-content: center;
+      }
+    }
+    .van-tabs__nav--card {
       width: 160px;
-      margin-left: 108px;
-      text-align: center;
     }
-    > div:first-child {
-      display: flex;
-      justify-content: center;
+    .van-tab {
+      margin: auto;
     }
-  }
-  .van-tabs__nav--card {
-    width: 160px;
-  }
-  .van-tab {
-    margin: auto;
-  }
-  .van-tabs--card {
-    padding-top: 0 !important;
-  }
-  .van-tabs__content {
-    margin-top: 10px;
+    .van-tabs--card {
+      padding-top: 0 !important;
+    }
+    .van-tabs__content {
+      margin-top: 10px;
+    }
+    .van-tabs__nav {
+      width: 375px;
+    }
   }
 }
 </style>
