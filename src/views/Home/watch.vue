@@ -1,5 +1,4 @@
 <template>
-  <!-- 个人中心页 -->
   <div class="page-home-bookTicket">
     <div class="home-header">
       <li>
@@ -15,10 +14,18 @@
         </a>
       </li>
     </div>
-    <div class="home-nav">
-      <van-tabs v-model="activeName" title-active-color="#F74444">
+    <div id="nav">
+      <li @click="curPage='Nav'">推荐</li>
+      <li @click="curPage='FreeMovie'">免费看片</li>
+      <li @click="curPage='MovieList'">影单</li>
+      <li @click="curPage='Video'">小视频</li>
+      <li @click="curPage='Comment'">影评</li>
+      <component :is="curPage"></component>
+    </div>
+    <!-- <div class="home-nav">
+      <van-tabs v-model="nodeId" title-active-color="#F74444">
         <van-tab title="推荐" name="70022794">
-          <Nav></Nav>
+          <Nav :imgs="[imgList1,imgList2,imgList3]"></Nav>
         </van-tab>
         <van-tab title="免费看片" name="70022795">
           <FreeMovie />
@@ -36,7 +43,7 @@
       <li>
         <i class="iconfont icon-buy"></i>
       </li>
-    </div>
+    </div>-->
   </div>
 </template>
 <script>
@@ -45,12 +52,15 @@ import Comment from '../../components/Comment/index.vue'
 import FreeMovie from '../../components/FreeMovie/index.vue'
 import Video from '../../components/Video/index.vue'
 import MovieList from '../../components/MovieList/index.vue'
-
+import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
   name: 'Home',
   data() {
     return {
-      activeName: 'a'
+      curPage: 'Nav'
+      // nodeId: '70022794',
+      // pagesize: 3,
+      // pageidx: 0
     }
   },
   components: {
@@ -60,12 +70,59 @@ export default {
     Video,
     MovieList
   },
-  methods: {},
-  mounted() {}
+  computed: {
+    ...mapState('navImg', ['imgList1', 'imgList2', 'imgList3'])
+  },
+  watch: {
+    nodeId(newVal, oldVal) {
+      // console.log(this.nodeId)
+      this.pageidx = 0
+      this.pagesize = 3
+
+      this.setNavImg({
+        imgList1: [],
+        imgList2: [],
+        imgList3: []
+      })
+      this.getNavImg({
+        nodeId: newVal,
+        pagesize: this.pagesize,
+        pageidx: this.pageidx
+      })
+      // this.loadMovieList()
+    }
+  },
+  methods: {
+    ...mapMutations('navImg', ['setNavImg']),
+    ...mapActions('navImg', ['getNavImg', 'getFreeImg']),
+    loadMovieList() {
+      this.pageidx++
+      // alert(1)
+      console.log(this.nodeId)
+      // let newnodeId = this.nodeId
+      this.getNavImg({
+        nodeId: 70022794,
+        pagesize: this.pagesize,
+        pageidx: this.pageidx
+      })
+    }
+  },
+  created() {
+    this.loadMovieList()
+  },
+  mounted() {},
+  updated() {}
 }
 </script>
 <style lang="scss" >
+html,
+body {
+  height: 100%;
+}
 .page-home-bookTicket {
+  // height: 100%;
+  // display: flex;
+  // flex-direction: column;
   .home-header {
     padding: 8px 12px;
     height: 8px 12px;
@@ -89,6 +146,9 @@ export default {
   }
 
   .home-nav {
+    // display: flex;
+    // flex: 1;
+    // overflow-y: auto;
     position: relative;
     li {
       width: 30px;

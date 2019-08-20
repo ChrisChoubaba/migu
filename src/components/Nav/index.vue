@@ -3,7 +3,7 @@
     <div class="nav-one">
       <div class="swiper-container swiper1">
         <div class="swiper-wrapper mycolor">
-          <div class="swiper-slide" v-for="(item) in imgList1" :key="item.imgSrc">
+          <div class="swiper-slide" v-for="(item) in imgs[0]" :key="item.wapUrl">
             <a href="#">
               <img :src="'http://movie.miguvideo.com/publish/i_www'+ item.imgSrc" alt />
             </a>
@@ -15,7 +15,7 @@
       <p class="mytitle">正在售票</p>
       <div class="swiper-container swiper2">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item in imgList2" :key="item.imgSrc">
+          <div class="swiper-slide" v-for="item in imgs[1]" :key="item.LONG_NAME">
             <figure>
               <img :src="'http://movie.miguvideo.com/publish/i_www'+ item.imgSrc" alt />
               <figcaption>
@@ -31,7 +31,7 @@
       <p class="mytitle">精彩活动</p>
       <div class="swiper-container swiper3">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item in imgList3" :key="item.imgSrc">
+          <div class="swiper-slide" v-for="item in imgs[2]" :key="item.wapUrl">
             <img :src="'http://movie.miguvideo.com/publish/i_www'+ item.imgSrc" alt />
           </div>
         </div>
@@ -40,17 +40,17 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
 export default {
   name: 'Nav',
+  props: {
+    imgs: Array
+  },
   data() {
     return {}
   },
-  computed: {
-    ...mapState('navImg', ['imgList1', 'imgList2', 'imgList3'])
-  },
+  computed: {},
   methods: {
     initSwiper() {
       var Myswiper1 = new Swiper('.swiper1', {
@@ -65,13 +65,9 @@ export default {
       var Myswiper3 = new Swiper('.swiper3', {
         slidesPerView: 1
       })
-    },
-    ...mapActions('navImg', ['getNavImg', 'getFreeImg'])
+    }
   },
-  created() {
-    this.getNavImg()
-    this.getFreeImg()
-  },
+  created() {},
   updated() {
     this.initSwiper()
   }
