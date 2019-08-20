@@ -1,20 +1,21 @@
 <template>
   <div class="coming-list">
     <ul class="coming-list-ul">
-      <div v-for="item in comingSoon" :key="item.filmId">
-        <p class="year">{{ item.openingDate }}</p>
-        <li class="coming-list-li">
+      <div v-for="item in getdate" :key="item.date">
+        <p class="year">{{ item.date }}</p>
+        <li class="coming-list-li" v-for="i in item.list" :key="i.filmId">
           <a href="#">
             <div class="coming-img">
-              <img :src="item.h5pics.highResolutionV" alt />
+              <img :src="i.h5pics.highResolutionV" alt />
             </div>
             <div class="coming-info">
-              <p class="coming-info-title">{{ item.filmName }}</p>
-              <p class="coming-info-director">导演 : {{ item.director}}</p>
-              <p class="coming-info-actor">{{ item.actor }}</p>
+              <p class="coming-info-title">{{ i.filmName }}</p>
+              <p class="coming-info-director">导演 : {{ i.director}}</p>
+              <p class="coming-info-actor">{{ i.actor }}</p>
             </div>
             <div class="coming-btn">
-              <button>购票</button>
+              <button v-if="i.isPreSale === '1'" class="green">预售</button>
+              <button v-else>想看</button>
             </div>
           </a>
         </li>
@@ -26,7 +27,8 @@
 <script>
 export default {
   props: {
-    comingSoon: Array
+    comingSoon: Array,
+    getdate: Array
   }
 }
 </script>
@@ -100,6 +102,10 @@ export default {
       border: 1px solid #ff5f16;
       color: #ff5f16;
       background: none;
+    }
+    .green {
+      border: 1px solid rgb(107, 188, 233);
+      color: rgb(107, 188, 203);
     }
   }
 }
