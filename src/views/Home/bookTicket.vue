@@ -1,13 +1,13 @@
 <template>
   <!-- 个人中心页 -->
-  <van-list :finished="finished" v-model="loading" finished-text="到底了" @load="loadFilmList">
+  <van-list :finished="finished" v-model="loading" @load="loadFilmList">
     <div class="page-home-bookTicket">
       <div class="header" ref="myHeader">
-        <div class="left">
-          <span class="leftContent">深圳</span>
+        <div class="left" to="/city">
+          <router-link to="/city" class="leftContent">深圳</router-link>
           <span class="iconfont icon-huidaodingbu"></span>
         </div>
-        <div class="center">
+        <div class="center" ref="wrapper">
           <van-tabs type="card" :class="{'tit': true}">
             <van-tab title="影片">
               <van-tabs sticky>
@@ -30,15 +30,18 @@
 <script>
 import FilmList from '../../components/FilmList'
 import comingSoon from '../../components/comingSoon'
+import BScroll from 'better-scroll'
 
 import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
-      pageNo: 0,
+      pageNo: 0, // 当前页码
+      pageSize: 20,
       finished: false,
-      loading: false
+      loading: false,
+      data: []
     }
   },
 
@@ -54,35 +57,52 @@ export default {
     ...mapMutations('film', ['setFilmList', 'setComingSoonList', 'setdate']),
     ...mapActions('film', ['getFilmList', 'getComingSoonList']),
 
-    // bindScroll() {
-    //   console.log('影片列表在滚动')
-    //   // console.log(this.$el.scrollTop)
-    //   if (this.$el.scrollTop >= 2000) {
-    //     this.pageNo++
-    //     this.$el.scrollTop = 1000
-    //   } else {
-    //   }
-    // },
     loadFilmList() {
-      console.log(this.$el.scrollTop)
+      // console.log(this.$el.scrollTop)
       this.pageNo++
       this.finished = false
+      console.log(this.pageNo)
       this.getFilmList({
+        pageNo: this.pageNo,
+        pageSize: this.pageSize,
         callback: () => {
           this.loading = false
-          this.finished = true
+          if (this.filmList.length >= 70) {
+            this.finished = true
+          }
         }
       })
     }
   },
   created() {
     this.getComingSoonList({
-      pageNo: this.pageNo
+      pageNo: this.pageNo,
+      pageSize: this.pageSize
     })
+  },
+  mounted() {
+    // this.$el.addEventListener('scroll', this.bindScroll)
+    // if (!this.filmScroll) {
+    //   this.$nextTick(() => {
+    //     this.filmScroll = new BScroll(this.$refs['wrapper'], {
+    //       scrollY: true,
+    //       click: true
+    //     })
+    //     this.filmScroll.on('touchend', pos => {
+    //       console.log(this.pageNo)
+    //       // 下拉动作
+    //       if (pos.y > 50) {
+    //         this.pageNo++
+    //         this.data = this.getComingSoonList({
+    //           pageNo: this.pageNo
+    //         }).then(res => {
+    //           this.data = res.data.concat(this.data)
+    //         })
+    //       }
+    //     })
+    //   })
+    // }
   }
-  // mounted() {
-  //   this.$el.addEventListener('scroll', this.bindScroll)
-  // }
 }
 </script>
 
@@ -102,11 +122,14 @@ export default {
     position: absolute;
     left: 12px;
     display: inline-block;
+    position: absolute;
+    z-index: 99;
   }
   .leftContent {
     color: #666;
     font-size: 15px;
     float: left;
+    background-size: contain;
   }
   .icon-huidaodingbu {
     font-size: 12px;

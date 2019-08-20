@@ -61,7 +61,7 @@ export default {
         .get('http://localhost:8080/api/mgw/bsdata4mv/v2/movieListPreview', {
           params: {
             pageNo: payload.pageNo,
-            pageSize: 20
+            pageSize: payload.pageSize
           }
         })
         .then(data => {
@@ -72,7 +72,8 @@ export default {
             commit({
               type: 'setComingSoonList',
               // dateList: data.body.movieList,
-              comingSoonList: data.body.movieList
+              comingSoonList: data.body.movieList,
+              dateList: data.body.movieList
             })
             // console.log(data.body.movieList)
           }
