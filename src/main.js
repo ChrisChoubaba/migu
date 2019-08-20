@@ -4,9 +4,10 @@ import router from './router'
 import store from './store'
 import { Tab, Tabs } from 'vant'
 import './assets/style/base.scss'
-Vue.config.productionTip = false
+
 import 'vant/lib/index.css'
 
+Vue.config.productionTip = false
 Vue.use(Tab).use(Tabs)
 new Vue({
   router,
