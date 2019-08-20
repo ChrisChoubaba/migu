@@ -60,13 +60,25 @@ const routes = [
     path: '/wallet',
     component: () => import('./views/Wallet/index.vue'),
     meta: {
-      title: '我的电影卡'
+      title: '我的电影卡',
+      needLogin: true
     }
   }
 ]
 
 const router = new VueRouter({
   routes
+})
+router.beforeEach((to, from, next) => {
+  if (to.meta.needLogin) {
+    if (window.isLogin) {
+      next()
+    }else {
+      next(`/login?redirect=${to.path}`)
+    }
+  }else {
+    next ()
+  }
 })
 router.afterEach((to,from) => {
   let title =  to.meta.title
