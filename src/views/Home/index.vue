@@ -1,5 +1,5 @@
 <template>
-  <div class="page-home">
+  <div id="Home" class="page-home">
     <router-view />
     <Tabbar :tabs="tabs" />
   </div>

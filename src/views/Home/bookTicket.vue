@@ -1,38 +1,28 @@
 <template>
   <!-- 个人中心页 -->
-  <van-list :finished="finished" v-model="loading" @load="loadFilmList">
-    <div class="page-home-bookTicket">
-      <div class="header" ref="myHeader">
-        <div class="left" to="/city">
-          <router-link to="/city" class="leftContent">深圳</router-link>
-          <span class="iconfont icon-huidaodingbu"></span>
-        </div>
-        <div class="center" ref="wrapper">
-          <van-tabs type="card" :class="{'tit': true}">
-            <van-tab title="影片">
-              <van-tabs sticky>
-                <van-tab title="正在热映">
-                  <FilmList :films="filmList" />
-                </van-tab>
-                <van-tab title="即将上映">
-                  <comingSoon :getdate="getdate" />
-                </van-tab>
-              </van-tabs>
-            </van-tab>
-            <van-tab title="影院">
-              <Cinemas :cinemas="cinemas" />
-            </van-tab>
-          </van-tabs>
-        </div>
+  <div class="page-home-bookTicket">
+    <div class="header" ref="myHeader">
+      <div class="left" to="/city">
+        <router-link to="/city" class="leftContent">深圳</router-link>
+        <span class="iconfont icon-huidaodingbu"></span>
+      </div>
+      <div class="header-center">
+        <button @click="curPage = 'yingpian'" :class="{headerActive:curPage === 'yingpian'}">影片</button>
+        <button @click="curPage = 'yingyuan'" :class="{headerActive:curPage === 'yingyuan'}">影院</button>
       </div>
     </div>
-  </van-list>
+    <div class="main">
+      <component :is="curPage"></component>
+    </div>
+  </div>
 </template>
 
 <script>
 import FilmList from '../../components/FilmList'
 import comingSoon from '../../components/comingSoon'
 import Cinemas from '../../components/Cinemas'
+import yingpian from '../../components/yingpian'
+import yingyuan from '../../components/yingyuan'
 import BScroll from 'better-scroll'
 
 import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
@@ -40,10 +30,7 @@ import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      pageNo: 0, // 当前页码
-      pageSize: 20,
-      finished: false,
-      loading: false,
+      curPage: 'yingpian',
       data: []
     }
   },
@@ -51,7 +38,9 @@ export default {
   components: {
     FilmList,
     comingSoon,
-    Cinemas
+    Cinemas,
+    yingpian,
+    yingyuan
   },
   computed: {
     ...mapState('film', ['filmList', 'comingSoonList', 'dateList', 'cinemas']),
@@ -64,55 +53,17 @@ export default {
       'setdate',
       'setCinemas'
     ]),
-    ...mapActions('film', ['getFilmList', 'getComingSoonList', 'getCinemas']),
-
-    loadFilmList() {
-      // console.log(this.$el.scrollTop)
-      this.pageNo++
-      this.finished = false
-      // console.log(this.pageNo)
-      this.getFilmList({
-        pageNo: this.pageNo,
-        pageSize: this.pageSize,
-        callback: () => {
-          this.loading = false
-          if (this.filmList.length >= 70) {
-            this.finished = true
-          }
-        }
-      })
-    }
+    ...mapActions('film', ['getFilmList', 'getComingSoonList', 'getCinemas'])
   },
   created() {
-    this.getComingSoonList({
-      pageNo: this.pageNo,
-      pageSize: this.pageSize
-    }),
-      this.getCinemas()
+    this.getFilmList()
+    // this.getComingSoonList({
+    //   pageNo: this.pageNo,
+    //   pageSize: this.pageSize
+    // }),
+    this.getCinemas()
   },
-  mounted() {
-    // this.$el.addEventListener('scroll', this.bindScroll)
-    // if (!this.filmScroll) {
-    //   this.$nextTick(() => {
-    //     this.filmScroll = new BScroll(this.$refs['wrapper'], {
-    //       scrollY: true,
-    //       click: true
-    //     })
-    //     this.filmScroll.on('touchend', pos => {
-    //       console.log(this.pageNo)
-    //       // 下拉动作
-    //       if (pos.y > 50) {
-    //         this.pageNo++
-    //         this.data = this.getComingSoonList({
-    //           pageNo: this.pageNo
-    //         }).then(res => {
-    //           this.data = res.data.concat(this.data)
-    //         })
-    //       }
-    //     })
-    //   })
-    // }
-  }
+  mounted() {}
 }
 </script>
 
@@ -148,11 +99,31 @@ export default {
       margin-left: 4px;
       color: #999;
     }
-    .center {
-      width: 100%;
-      position: absolute;
-      top: 6px;
+    .header-center {
+      margin-left: 126px;
+      line-height: 44px;
+      button {
+        height: 30px;
+        width: 65px;
+        line-height: 30px;
+        border: none;
+        background: none;
+        border-radius: 3px;
+        border: 1px solid #f74444;
+        color: #f74444;
+      }
+      .headerActive {
+        background: #f74444;
+        color: #fff;
+      }
     }
+  }
+
+  .center {
+    width: 100%;
+    position: absolute;
+    top: 6px;
+    overflow-y: auto;
     .tit {
       > div:first-child {
         width: 160px;
@@ -180,5 +151,8 @@ export default {
       width: 375px;
     }
   }
+}
+.page-home-bookTicket .van-tabs__wrap {
+  padding-right: 0 !important;
 }
 </style>
