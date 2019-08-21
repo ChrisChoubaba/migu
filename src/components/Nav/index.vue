@@ -3,7 +3,7 @@
     <div class="nav-one">
       <div class="swiper-container swiper1">
         <div class="swiper-wrapper mycolor">
-          <div class="swiper-slide" v-for="(item) in imgs[0]" :key="item.wapUrl">
+          <div class="swiper-slide" v-for="(item) in imgList1" :key="item.imgSrc">
             <a href="#">
               <img :src="'http://movie.miguvideo.com/publish/i_www'+ item.imgSrc" alt />
             </a>
@@ -15,7 +15,7 @@
       <p class="mytitle">正在售票</p>
       <div class="swiper-container swiper2">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item in imgs[1]" :key="item.LONG_NAME">
+          <div class="swiper-slide" v-for="item in imgList2" :key="item.imgSrc">
             <figure>
               <img :src="'http://movie.miguvideo.com/publish/i_www'+ item.imgSrc" alt />
               <figcaption>
@@ -31,7 +31,7 @@
       <p class="mytitle">精彩活动</p>
       <div class="swiper-container swiper3">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item in imgs[2]" :key="item.wapUrl">
+          <div class="swiper-slide" v-for="item in imgList3" :key="item.imgSrc">
             <img :src="'http://movie.miguvideo.com/publish/i_www'+ item.imgSrc" alt />
           </div>
         </div>
@@ -42,6 +42,7 @@
 <script>
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
+import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
   name: 'Nav',
   props: {
@@ -50,7 +51,8 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+
+  computed: { ...mapState('navImg', ['imgList1', 'imgList2', 'imgList3']) },
   methods: {
     initSwiper() {
       var Myswiper1 = new Swiper('.swiper1', {
