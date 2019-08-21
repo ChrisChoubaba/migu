@@ -13,8 +13,9 @@
           v-for="item in cities"
           :key="item.cityName"
           :ref="'item-' + item.cityName"
+          @click="chooseCity"
         >
-          <p v-if="item.cityCode" class="title1" id="item.cityName">{{ item.cityName }}</p>
+          <p v-if="item.cityCode" class="title1" :id="item.cityCode">{{ item.cityName }}</p>
           <p v-else class="title" :id="item.cityName">{{ item.cityName }}</p>
         </li>
       </ul>
@@ -31,19 +32,29 @@
 import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 
 export default {
+  // data(){
+  //   return{
+
+  //   }
+  // },
   methods: {
     ...mapActions('city', ['getCities']),
     ...mapMutations('city', ['setCities']),
     fn1(zm) {
-      console.log(this.$refs[`item-${zm}`][0])
+      // console.log(this.$refs[`item-${zm}`][0])
       let itemBox = this.$refs[`item-${zm}`][0]
       let offsetTop = itemBox.offsetTop
-      console.log(offsetTop)
       document.documentElement.scrollTop = offsetTop
-      console.log(this.$refs['myBox'].scrollTop)
     },
     onClickLeft() {
       this.$router.back()
+    },
+    chooseCity(event) {
+      // console.log(this.$refs[])
+      if (event) {
+        // alert(event.target.innerText)
+        console.log(event.target)
+      }
     }
   },
   created() {

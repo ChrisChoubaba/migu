@@ -3,7 +3,8 @@ import request from '../../utils/request'
 export default {
   namespaced: true,
   state: {
-    cities: []
+    cities: [],
+    curCity: []
   },
   getters: {
     zm(state) {
@@ -19,6 +20,9 @@ export default {
   mutations: {
     setCities(state, payload) {
       state.cities = payload.cities
+    },
+    setName(state, payload) {
+      state.curCity = payload.curCity
     }
   },
   actions: {

@@ -4,7 +4,8 @@ export default {
   namespaced: true,
   state: {
     filmList: [],
-    comingSoonList: []
+    comingSoonList: [],
+    cinemas: []
   },
   getters: {
     // 取时间数组
@@ -24,7 +25,7 @@ export default {
           dateList.push(obj)
         }
       })
-      console.log(dateList)
+      // console.log(dateList)
       return dateList
     }
   },
@@ -36,9 +37,12 @@ export default {
       state.comingSoonList = payload.comingSoonList
       // state.dateList = payload.dateList
     },
-    setdate(state, payload) {
-      state.dateList = payload.result
+    setCinemas(state, payload) {
+      state.cinemas = payload.cinemaes
     }
+    // setdate(state, payload) {
+    //   state.dateList = payload.result
+    // }
   },
   actions: {
     getFilmList({ commit }, payload) {
@@ -77,6 +81,35 @@ export default {
             })
             // console.log(data.body.movieList)
           }
+        })
+    },
+    getCinemas({ commit }, payload) {
+      request
+        .post(
+          'http://localhost:8080/api/mta-service/data/migu/validCinemaes.jsp',
+          {
+            cityCode: 4900,
+            orderType: 1,
+            longitude: '',
+            latitude: ''
+          },
+          {
+            transformRequest: data => {
+              //在请求发送到服务器之前对请求的参数做格式转换
+              // 这里研究 咪咕 发现，他需要的是  key=value&key=value 这种格式的数据
+              // nodeId=70022794&pagesize=3&pageidx=1
+              let arr = []
+              for (let key in data) {
+                arr.push(`${key}=${data[key]}`)
+              }
+              // arr =['nodeId=70022794', 'pagesize=3', 'pageidx=1']
+              return arr.join('&')
+            }
+          }
+        )
+        .then(data => {
+          commit('setCinemas', data)
+          console.log(data)
         })
     }
   }

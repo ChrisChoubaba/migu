@@ -19,7 +19,9 @@
                 </van-tab>
               </van-tabs>
             </van-tab>
-            <van-tab title="影院">内容 2</van-tab>
+            <van-tab title="影院">
+              <Cinemas :cinemas="cinemas" />
+            </van-tab>
           </van-tabs>
         </div>
       </div>
@@ -30,6 +32,7 @@
 <script>
 import FilmList from '../../components/FilmList'
 import comingSoon from '../../components/comingSoon'
+import Cinemas from '../../components/Cinemas'
 import BScroll from 'better-scroll'
 
 import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
@@ -47,21 +50,27 @@ export default {
 
   components: {
     FilmList,
-    comingSoon
+    comingSoon,
+    Cinemas
   },
   computed: {
-    ...mapState('film', ['filmList', 'comingSoonList', 'dateList']),
+    ...mapState('film', ['filmList', 'comingSoonList', 'dateList', 'cinemas']),
     ...mapGetters('film', ['getdate'])
   },
   methods: {
-    ...mapMutations('film', ['setFilmList', 'setComingSoonList', 'setdate']),
-    ...mapActions('film', ['getFilmList', 'getComingSoonList']),
+    ...mapMutations('film', [
+      'setFilmList',
+      'setComingSoonList',
+      'setdate',
+      'setCinemas'
+    ]),
+    ...mapActions('film', ['getFilmList', 'getComingSoonList', 'getCinemas']),
 
     loadFilmList() {
       // console.log(this.$el.scrollTop)
       this.pageNo++
       this.finished = false
-      console.log(this.pageNo)
+      // console.log(this.pageNo)
       this.getFilmList({
         pageNo: this.pageNo,
         pageSize: this.pageSize,
@@ -78,7 +87,8 @@ export default {
     this.getComingSoonList({
       pageNo: this.pageNo,
       pageSize: this.pageSize
-    })
+    }),
+      this.getCinemas()
   },
   mounted() {
     // this.$el.addEventListener('scroll', this.bindScroll)
