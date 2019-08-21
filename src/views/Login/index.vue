@@ -95,11 +95,11 @@ export default {
         })
         .then(res => {
           console.log(res);
-
+//-------------------获取账户名和令牌------
           _this.userToken = res.data.data.token;
           _this.user = res.data.data.userInfo.username;
-          console.log(_this.user );
-          console.log(_this.userToken );
+          // console.log(_this.user );
+          // console.log(_this.userToken );
           //将token和账号保存在sessionStorage里面
           sessionStorage.setItem('Authorization', _this.userToken);
           sessionStorage.setItem('userName', _this.user);
@@ -108,17 +108,18 @@ export default {
 
           _this.changeToken({ Authorization: _this.token });
           _this.changeUserName({ userName: _this.userName });
-
-          // let toPath = _this.$route.query.redirect || '/personCenter';
+          //使用Toast组件实现轻提示
+          _this.$toast({
+            message: "登录成功",
+          })
           let toPath = _this.$route.query.redirect || '/personCenter';
-          // console.log(topath);
-          
           _this.$router.replace(toPath)
-          // _this.$router.push('/home');
-          alert('登陆成功');
         }).catch(error => {
-          alert('账号或密码错误');
-          console.log(error);
+          // alert('账号或密码错误');
+          // console.log(error);
+          _this.$toast({
+            message: "账号或密码错误",
+          })
         });
       }
     }

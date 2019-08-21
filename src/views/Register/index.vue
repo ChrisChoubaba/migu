@@ -76,8 +76,9 @@ export default {
               password
             })
             .then(function(res) {
-              console.log(res),
-              alert(res.data.msg)
+              _this.$toast({
+                  message: "注册成功",
+              })
                 _this.$router.push({
                   path: '/login'
                 })
@@ -86,7 +87,9 @@ export default {
               console.log(error)
             })
         } else {
-          alert('账号密码不一样')
+            _this.$toast({
+            message: "两次输入密码不一致",
+          })
         }
       }
     },

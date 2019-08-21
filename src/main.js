@@ -2,33 +2,32 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import { Tab, Tabs } from 'vant'
+import { Tab, Tabs, Toast } from 'vant'
 import './assets/style/base.scss'
 import axios from 'axios'
 import 'vant/lib/index.css'
 import 'element-ui/lib/theme-chalk/index.css'
 
-window.isLogin = '' //登录状态
+window.isLogin = '' // 登录状态
 
 Vue.config.productionTip = false
 
 Vue.config.productionTip = false
-Vue.use(Tab).use(Tabs)
+Vue.use(Tab).use(Tabs).use(Toast)
 
 axios.interceptors.request.use(
   config => {
     if (sessionStorage.getItem('Authorization')) {
-      config.headers.Authorization = sessionStorage.getItem('Authorization');
+      config.headers.Authorization = sessionStorage.getItem('Authorization')
     }
- 
-    return config;
+    return config
   },
   error => {
-    return Promise.reject(error);
-  });
+    return Promise.reject(error)
+  })
 
 new Vue({
-    router,
-    store,
-    render: h => h(App)
+  router,
+  store,
+  render: h => h(App)
 }).$mount('#app')

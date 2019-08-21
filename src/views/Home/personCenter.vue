@@ -10,7 +10,8 @@
       <router-link to="/login" class="login-z">
         <div class="login-l">
           <img src="../../assets/images/defaultPhoto.png" alt="">
-          <span>点击登录</span>
+          <span v-if="userName != ''">{{ userName }}</span>
+          <span v-else>点击登录</span>
         </div>
         <span class="iconfont icon-icon"></span>
       </router-link>
@@ -77,7 +78,11 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState('login',['userName'])
+  },
   methods: {
     fn2() {
     if (window.isLogin != null && window.isLogin != '' ){

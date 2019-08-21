@@ -71,20 +71,17 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
   if (to.meta.needLogin) {
-    window.isLogin = sessionStorage.getItem('Authorization');
-    console.log(window.isLogin);
-      // console.log(to.path);
-      console.log(to.meta.needLogin);
+    window.isLogin = sessionStorage.getItem('Authorization')
     if (window.isLogin !== null && window.isLogin !== '') {
       next()
-    }else {
+    } else {
       next(`/login?redirect=${to.path}`)
     }
-  }else {
-    next ()
+  } else {
+    next()
   }
 })
-router.afterEach((to,from) => {
+router.afterEach((to, from) => {
   let title = to.meta.title
   document.title = title
 })
