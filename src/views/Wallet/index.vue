@@ -1,5 +1,5 @@
 <template>
-<!-- 我的钱包页面 -->
+  <!-- 我的钱包页面 -->
   <div class="page-wallet">
     <div class="header">
       <router-link class="iconfont icon-xia" to="/personCenter"></router-link>
@@ -7,11 +7,11 @@
     </div>
     <div class="mycard">
       <van-tabs v-model="active">
-        <van-tab title="电影卡" >
+        <van-tab title="电影卡">
           <div class="movies">
             <p>添加新电影卡</p>
             <div class="cSerch">
-              <input type="text" placeholder="请输入电影卡兑换码">
+              <input type="text" placeholder="请输入电影卡兑换码" />
               <button>兑换</button>
             </div>
             <div class="bCard">
@@ -25,30 +25,30 @@
           <div class="coupon">
             <p>添加新电影卡</p>
             <div class="cpSerch">
-              <input type="text" placeholder="请输入票券兑换码">
+              <input type="text" placeholder="请输入票券兑换码" />
               <button>兑换</button>
             </div>
             <div class="p_img">
-              <img src="../../assets/images/empty-con.png" alt="">
+              <img src="../../assets/images/empty-con.png" alt />
               <p>您还没有任何兑换券哦</p>
             </div>
           </div>
         </van-tab>
         <!-- 兑换券---------- -->
-        <van-tab title="兑换券">          
-            <div class="exchange">
-              <p>添加新电影卡</p>
-              <div class="exSerch">
-                <input type="text" placeholder="请输入兑换券密码进行兑换">
-                <button>添加</button>
-              </div>            
-              <p>* 部分影院的4D影厅、VIP影厅放映的影片，不可用兑换券兑换影票</p>
-              <p>* 万达兑换券不支持春节、平安夜(12.24)、情人节(2.14)等影城规定的特殊节假日场次，不支持首映式、VIP厅等特殊场次；仅限同类万达兑换券同时支付一笔订单，不可与其他卡券、支付方式混合支付。</p>
-              <div class="p_img">
-                <img src="../../assets/images/empty-con.png" alt="">
-                <p>您还没有任何兑换券哦</p>
-              </div>
+        <van-tab title="兑换券">
+          <div class="exchange">
+            <p>添加新电影卡</p>
+            <div class="exSerch">
+              <input type="text" placeholder="请输入兑换券密码进行兑换" />
+              <button>添加</button>
             </div>
+            <p>* 部分影院的4D影厅、VIP影厅放映的影片，不可用兑换券兑换影票</p>
+            <p>* 万达兑换券不支持春节、平安夜(12.24)、情人节(2.14)等影城规定的特殊节假日场次，不支持首映式、VIP厅等特殊场次；仅限同类万达兑换券同时支付一笔订单，不可与其他卡券、支付方式混合支付。</p>
+            <div class="p_img">
+              <img src="../../assets/images/empty-con.png" alt />
+              <p>您还没有任何兑换券哦</p>
+            </div>
+          </div>
         </van-tab>
         <!-- 会员卡----------- -->
         <van-tab title="会员卡">
@@ -71,7 +71,6 @@
       </van-tabs>
     </div>
   </div>
-  
 </template>
 <script>
 export default {
@@ -84,30 +83,29 @@ export default {
 </script>
 style-<style lang="scss">
 @import '../../assets/style/common/mixin.scss';
-  .page-wallet {
-    display: flex;
-    flex-direction: column;
+.page-wallet {
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  @include border-bottom;
+  display: flex;
+  height: 45px;
+  padding: 0 10px;
+  align-items: center;
+  font-size: 18px;
+  .icon-xia {
+    font-size: 22px;
+    color: #999;
   }
-  .header {
-    @include border-bottom;
-    display: flex;
-    height: 45px;
-    padding: 0 10px;
-    align-items: center;
-    font-size: 18px;
-    .icon-xia {
-      font-size: 22px;
-      color: #999;
-    }
-    h1 {
-      flex: 1;
-      text-align: center;
-    }
+  h1 {
+    flex: 1;
+    text-align: center;
   }
+}
 .mycard {
   .van-tab {
     color: #000;
-
   }
   .van-tab--active {
     color: #f74444;
@@ -118,13 +116,13 @@ style-<style lang="scss">
 }
 //电影卡------------
 .movies {
-    p {
+  p {
     font-size: 12px;
     line-height: 36px;
     color: #999;
   }
   .cSerch {
-    margin-bottom: 20px ;
+    margin-bottom: 20px;
     input {
       border: 0;
       width: 72%;
@@ -133,7 +131,7 @@ style-<style lang="scss">
       line-height: 30px;
       border-radius: 3px;
     }
-    >button {
+    > button {
       color: #fff;
       float: right;
       width: 72px;
@@ -155,29 +153,29 @@ style-<style lang="scss">
     font-size: 18px;
     line-height: 56px;
     color: #666;
-    font-family: 'microsoft yahei',Verdana,Arial,Helvetica,sans-serif; 
-    }
-    p {
-      line-height: 12px;
-    }
-    >button {
-      width: 134px;
-      height: 38px;
-      border: 0;
-      background: #f74444;
-      border-radius: 19px;
-      margin-top: 30px;
-    }
+    font-family: 'microsoft yahei', Verdana, Arial, Helvetica, sans-serif;
+  }
+  p {
+    line-height: 12px;
+  }
+  > button {
+    width: 134px;
+    height: 38px;
+    border: 0;
+    background: #f74444;
+    border-radius: 19px;
+    margin-top: 30px;
+  }
 }
 // 票券兑换码
 .coupon {
-    p {
+  p {
     font-size: 12px;
     line-height: 36px;
     color: #999;
   }
   .cpSerch {
-    margin-bottom: 20px ;
+    margin-bottom: 20px;
     input {
       border: 0;
       width: 72%;
@@ -186,7 +184,7 @@ style-<style lang="scss">
       line-height: 30px;
       border-radius: 3px;
     }
-    >button {
+    > button {
       color: #fff;
       float: right;
       width: 72px;
@@ -206,7 +204,7 @@ style-<style lang="scss">
 }
 // 兑换券
 .exchange {
-    p {
+  p {
     font-size: 13px;
     line-height: 18px;
     color: #999;
@@ -215,7 +213,7 @@ style-<style lang="scss">
     line-height: 36px;
   }
   .exSerch {
-    margin-bottom: 20px ;
+    margin-bottom: 20px;
     input {
       border: 0;
       width: 72%;
@@ -224,7 +222,7 @@ style-<style lang="scss">
       line-height: 30px;
       border-radius: 3px;
     }
-    >button {
+    > button {
       color: #fff;
       float: right;
       width: 72px;
@@ -282,7 +280,7 @@ style-<style lang="scss">
         font-size: 16px;
         margin-right: 8px;
       }
-    }    
+    }
   }
   h1 {
     font-size: 18px;
@@ -292,6 +290,4 @@ style-<style lang="scss">
     margin-top: 10px;
   }
 }
-
-
 </style>
