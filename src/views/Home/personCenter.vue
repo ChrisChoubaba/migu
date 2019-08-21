@@ -66,7 +66,7 @@
           <span class="iconfont icon-icon"></span>
         </router-link>
         <!-- 在线客服 -->
-        <router-link to="/login" class="ticket">
+        <router-link to="/login" class="ticket" @click="fn2">
           <div class="ticket-l">
             <span class="iconfont icon-dianying"></span>
             <span>约票</span>
@@ -76,6 +76,17 @@
       </div>
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    fn2() {
+    if (window.isLogin != null && window.isLogin != '' ){
+
+    }
+    }
+  }
+}
+</script>
 style-<style lang="scss">
 @import '../../assets/style/common/mixin.scss';
 .page-home-personCenter {

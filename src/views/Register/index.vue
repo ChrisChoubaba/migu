@@ -75,8 +75,9 @@ export default {
               username,
               password
             })
-            .then(function(response) {
-              console.log(response),
+            .then(function(res) {
+              console.log(res),
+              alert(res.data.msg)
                 _this.$router.push({
                   path: '/login'
                 })
