@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import './assets/style/base.scss'
-import { Tab, Tabs, List, Cell, Toast } from 'vant'
+import { Tab, Tabs, List, Cell, Toast, Search } from 'vant'
 // import 'element-ui/lib/theme-chalk/index.css'
 
 import 'vant/lib/index.css'
@@ -22,7 +22,7 @@ axios.interceptors.request.use(
   error => {
     return Promise.reject(error)
   })
-Vue.use(Tab).use(Tabs).use(Toast).use(List).use(Cell)
+Vue.use(Tab).use(Tabs).use(Toast).use(List).use(Cell).use(Search)
 
 new Vue({
   router,

@@ -36,6 +36,13 @@ const routes = [
     ]
   },
   {
+    path: '/search',
+    component: () => import('./views/Home/search.vue'),
+    meta: {
+      title: '搜索'
+    }
+  },
+  {
     path: '/city',
     component: () => import('./views/City/index.vue'),
     meta: {

@@ -79,7 +79,7 @@ export default {
               _this.$toast({
                   message: "注册成功",
               })
-                _this.$router.push({
+                _this.$router.replace({
                   path: '/login'
                 })
             })
