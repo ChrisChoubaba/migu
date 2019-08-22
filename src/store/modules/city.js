@@ -4,7 +4,7 @@ export default {
   namespaced: true,
   state: {
     cities: [],
-    curCity: []
+    curCity: {}
   },
   getters: {
     zm(state) {

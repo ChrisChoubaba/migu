@@ -3,7 +3,7 @@
   <div class="page-home-bookTicket">
     <div class="header" ref="myHeader">
       <div class="left" to="/city">
-        <router-link to="/city" class="leftContent">深圳</router-link>
+        <router-link to="/city" class="leftContent">{{ curCity.cityName ? curCity.cityName : '深圳' }}</router-link>
         <span class="iconfont icon-huidaodingbu"></span>
       </div>
       <div class="header-center">
@@ -44,6 +44,7 @@ export default {
   },
   computed: {
     ...mapState('film', ['filmList', 'comingSoonList', 'dateList', 'cinemas']),
+    ...mapState('city', ['curCity']),
     ...mapGetters('film', ['getdate'])
   },
   methods: {
@@ -105,7 +106,7 @@ export default {
       button {
         height: 30px;
         width: 65px;
-        line-height: 30px;
+        line-height: 25px;
         border: none;
         background: none;
         border-radius: 3px;

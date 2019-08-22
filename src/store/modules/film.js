@@ -5,28 +5,27 @@ export default {
   state: {
     filmList: [],
     comingSoonList: [],
-    cinemas: []
+    cinemas: [],
+    dateList: []
   },
   getters: {
     // 取时间数组
     getdate(state) {
-      let dateList = []
-
       state.comingSoonList.forEach(item => {
         let date = item.openingDate
-        let index = dateList.findIndex(a => a.date === date)
+        let index = state.dateList.findIndex(a => a.date === date)
         if (index > -1) {
-          dateList[index].list.push(item)
+          state.dateList[index].list.push(item)
         } else {
           let obj = {
             date,
             list: [item]
           }
-          dateList.push(obj)
+          state.dateList.push(obj)
         }
       })
       // console.log(dateList)
-      return dateList
+      return state.dateList
     }
   },
   mutations: {
@@ -45,20 +44,20 @@ export default {
     // }
   },
   actions: {
+    // 获取正在热映数据
     getFilmList({ commit }, payload) {
-      setTimeout(() => {
-        request
-          .get(
-            'http://localhost:8080/api/mgw/bsdata4mv/v2/movieListShow/4708?cityCode=4900'
-          )
-          .then(data => {
-            if (data.code === 200) {
-              commit('setFilmList', data)
-              // console.log(data)
-            }
-          })
-      }, 1000)
+      request
+        .get(
+          'http://localhost:8080/api/mgw/bsdata4mv/v2/movieListShow/4708?cityCode=4900'
+        )
+        .then(data => {
+          if (data.code === 200) {
+            commit('setFilmList', data)
+            // console.log(data)
+          }
+        })
     },
+    // 获取即将上映数据
     getComingSoonList({ commit, state, getters }, payload) {
       request
         .get('http://localhost:8080/api/mgw/bsdata4mv/v2/movieListPreview', {
@@ -76,19 +75,25 @@ export default {
               type: 'setComingSoonList',
               // dateList: data.body.movieList,
               comingSoonList: data.body.movieList,
-              dateList: getters.getdate.concat(getters.dateList)
+              dateList: data.body.movieList
             })
-            console.log(getters.getdate.concat(getters.getdate))
             payload.callback()
           }
         })
     },
+    // 获取影院
     getCinemas({ commit }, payload) {
+      // let hello = JSON.parse(localStorage.getItem('hello')).cityCode
+      //   ? JSON.parse(localStorage.getItem('hello')).cityCode
+      //   : 4900
+      // console.log(hello)
       request
         .post(
           'http://localhost:8080/api/mta-service/data/migu/validCinemaes.jsp',
           {
-            cityCode: 4900,
+            cityCode: localStorage.getItem('hello')
+              ? JSON.parse(localStorage.getItem('hello')).cityCode
+              : 4900,
             orderType: 1,
             longitude: '',
             latitude: ''
