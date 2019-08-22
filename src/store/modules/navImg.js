@@ -1,4 +1,11 @@
 import request from '../../utils/request'
+import Vue from 'vue'
+import { Tab, Tabs, List, Cell, Toast } from 'vant'
+Vue.use(Tab)
+  .use(Tabs)
+  .use(List)
+  .use(Cell)
+  .use(Toast)
 export default {
   namespaced: true,
   state: {
@@ -24,6 +31,7 @@ export default {
   },
   actions: {
     getNavImg({ commit, state }, payload) {
+      Toast.loading({ duration: 0, message: '加载中' })
       request
         .post(
           'http://localhost:8080/api/lovev/miguMovie/data/seeFilmData.jsp',
@@ -47,7 +55,8 @@ export default {
           }
         )
         .then(res => {
-          console.log(res)
+          // console.log(res)
+          Toast.clear()
           if (res.length == 2) {
             commit({
               type: 'setNavImg',
@@ -62,9 +71,9 @@ export default {
           } else {
             commit({
               type: 'setNavImg',
-              imgList1: state.imgList1.concat(res[0].list),
-              imgList2: state.imgList1.concat(res[1].list),
-              imgList3: state.imgList1.concat(res[2].list)
+              imgList1: res[0].list,
+              imgList2: res[1].list,
+              imgList3: res[2].list
             })
           }
         })
