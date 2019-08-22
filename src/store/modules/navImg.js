@@ -60,13 +60,13 @@ export default {
           if (res.length == 2) {
             commit({
               type: 'setNavImg',
-              imgList1: state.imgList1.concat(res[0].list),
-              imgList2: state.imgList1.concat(res[1].list)
+              imgList1: res[0].list,
+              imgList2: res[1].list
             })
           } else if (res.length == 1) {
             commit({
               type: 'setNavImg',
-              imgList1: state.imgList1.concat(res[0].list)
+              imgList1: res[0].list
             })
           } else {
             commit({

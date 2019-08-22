@@ -21,9 +21,12 @@
       <li @click="fn4" :class="{active:curPage==='Video'}">小视频</li>
       <li @click="fn5" :class="{active:curPage==='Comment'}">影评</li>
     </ul>
+    <!-- <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+    <van-cell v-for="item in list" :key="item" :title="item" />-->
     <div class="watchContent">
       <component :is="curPage"></component>
     </div>
+    <!-- </van-list> -->
   </div>
 </template>
 <script>
@@ -42,7 +45,10 @@ export default {
       // nodeId2: 70022795,
       curPage: 'Nav',
       pagesize: 3,
-      pageidx: 0
+      pageidx: 0,
+
+      loading: false,
+      finished: false
     }
   },
   components: {
@@ -152,6 +158,7 @@ export default {
         pageidx: this.pageidx
       })
     }
+
     //   request
     //     .post(
     //       'http://localhost:8080/api/lovev/miguMovie/data/seeFilmData.jsp',
