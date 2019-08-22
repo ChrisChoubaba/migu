@@ -1,28 +1,44 @@
 <template>
-  <div class="film-list">
-    <ul class="film-list-ul">
-      <li v-for="item in films" :key="item.filmId" class="film-list-li">
-        <a href="#">
-          <div class="film-img">
-            <img :src="item.h5pics.highResolutionV" alt />
-          </div>
-          <div class="film-info">
-            <p class="film-info-title">{{ item.filmName }}</p>
-            <p class="film-info-director">导演 : {{ item.director}}</p>
-            <p class="film-info-actor">{{ item.actor }}</p>
-          </div>
-          <div class="film-btn">
-            <button>购票</button>
-          </div>
-        </a>
-      </li>
-    </ul>
-  </div>
+  <van-list :finished="finished" v-model="loading" finished-text="没有更多数据啦" @load="fn1">
+    <div class="film-list">
+      <ul class="film-list-ul">
+        <li v-for="item in films" :key="item.filmId" class="film-list-li">
+          <a href="#">
+            <div class="film-img">
+              <img :src="item.h5pics.highResolutionV" alt />
+            </div>
+            <div class="film-info">
+              <p class="film-info-title">{{ item.filmName }}</p>
+              <p class="film-info-director">导演 : {{ item.director}}</p>
+              <p class="film-info-actor">{{ item.actor }}</p>
+            </div>
+            <div class="film-btn">
+              <button>购票</button>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </van-list>
 </template>
 <script>
 export default {
+  data() {
+    return {
+      finished: false,
+      loading: false
+    }
+  },
   props: {
     films: Array
+  },
+  methods: {
+    fn1() {
+      setTimeout(() => {
+        this.finished = true
+        this.loading = false
+      }, 1500)
+    }
   }
 }
 </script>
@@ -88,7 +104,7 @@ export default {
       margin-left: 28px;
       width: 50px;
       height: 25px;
-      line-height: 25px;
+      line-height: 20px;
       border-radius: 2px;
       border: 1px solid #ff5f16;
       color: #ff5f16;

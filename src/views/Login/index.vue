@@ -14,9 +14,9 @@
             type="tel"
             placeholder="手机号/邮箱/用户名"
             class="text"
-            v-model="username"
-            @focus="act_index=1"
+            v-model="loginForm.username"
             ref="ipt"
+            @focus="act_index=1"
           />
         </div>
         <div class="form_item" :class="{active:act_index===2}">
@@ -24,15 +24,15 @@
             :type="pwdType"
             placeholder="密码"
             class="text"
-            v-model="password"
-            @focus="act_index=2"
             ref="pwd"
+            v-model="loginForm.password"
+            @focus="act_index=2"
           />
           <em class="iconfont" :class="iconft" @click="iconfot"></em>
         </div>
         <!-- 登录按钮 -->
         <div class="form_btn">
-          <input type="submit" value="登录" class="submit" />
+          <input type="submit" value="登录" class="submit" @click="goLogin" />
         </div>
       </div>
     </div>
@@ -53,6 +53,9 @@
 </template>
 
 <script>
+// window.isLogin = false //登录状态
+import axios from 'axios'
+import { mapMutations } from 'vuex'
 export default {
   name: 'Login',
   data() {
@@ -60,18 +63,24 @@ export default {
       // local: 'false',
       ifDisplay: 'false',
       act_index: 1,
-      username: '', //账号的value
-      password: '', //密码
+      // username: '', //账号的value
+      // password: '', //密码
       dataes: [],
       pwdType: 'password', //输入的密码类型
-      iconft: 'icon-mimayincang' //隐藏时显示的图片
+      iconft: 'icon-mimayincang', //隐藏时显示的图片
+      // text: '', //账号的value
+      // password: '' ,//密码
+      loginForm: {
+        username: '',
+        password: ''
+      }
     }
   },
   methods: {
-    login() {
-      console.log(this.text)
-      console.log(this.password)
-    },
+    ...mapMutations('login', ['changeToken', 'changeUserName']),
+    //   console.log(this.text)
+    //   console.log(this.password)
+    // },
     enroll() {
       this.$router.push({
         path: 'register'
@@ -88,6 +97,48 @@ export default {
         this.iconft == 'icon-mimayincang'
           ? 'icon-mimaxianshi'
           : 'icon-mimayincang'
+    },
+    goLogin() {
+      let _this = this
+      // console.log();
+      if (this.loginForm.username === '' || this.loginForm.password === '') {
+        alert('账号或密码不能为空')
+      } else {
+        axios({
+          method: 'post',
+          url: 'http://localhost:3000/api/sign-in',
+          data: _this.loginForm
+        })
+          .then(res => {
+            console.log(res)
+            //-------------------获取账户名和令牌------
+            _this.userToken = res.data.data.token
+            _this.user = res.data.data.userInfo.username
+            // console.log(_this.user );
+            // console.log(_this.userToken );
+            //将token和账号保存在sessionStorage里面
+            sessionStorage.setItem('Authorization', _this.userToken)
+            sessionStorage.setItem('userName', _this.user)
+            _this.token = sessionStorage.getItem('Authorization')
+            _this.userName = sessionStorage.getItem('userName')
+
+            _this.changeToken({ Authorization: _this.token })
+            _this.changeUserName({ userName: _this.userName })
+            //使用Toast组件实现轻提示
+            _this.$toast({
+              message: '登录成功'
+            })
+            let toPath = _this.$route.query.redirect || '/personCenter'
+            _this.$router.replace(toPath)
+          })
+          .catch(error => {
+            // alert('账号或密码错误');
+            // console.log(error);
+            _this.$toast({
+              message: '账号或密码错误'
+            })
+          })
+      }
     }
   }
 }
@@ -98,7 +149,6 @@ export default {
 .login {
   max-width: 480px;
   margin: 0 auto;
-
   header {
     position: fixed;
     top: 0;
