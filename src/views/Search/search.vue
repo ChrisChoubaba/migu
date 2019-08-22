@@ -3,22 +3,22 @@
    -->
 <div class="searchPage">
     <van-search
+      class="sHeader"
       placeholder="搜影片、找影人"
       show-action
       v-model="value"
       shape="round"
       @search="onSearch"
-      ref="abc"
     >
-      <div slot="action" @click="onSearch(value)">{{ this.value !== '' ? '搜索' : '取消' }}</div>
+      <div slot="action" @click="onSearch(value)" ref="btnMsg">{{ this.value !== '' ? '搜索' : '取消' }}</div>
     </van-search>
-    <ul class="searchFilmList">
-      <li class="searchFilm" v-for="item in 20">
-        <img src="http://movie.miguvideo.com/publish/poms/image/3006/738/928/201905231727_1_HSJ720V.jpg" alt="">
+    <ul class="searchFilmList" ref="searchFilmList">
+      <li class="searchFilm" v-for="item in searchList" :key="item.contId">
+        <img :src="'http://movie.miguvideo.com/'+item.imgSrcH" alt="">
         <div class="sContent">
-          <h1>复仇者联盟</h1>
-          <p>雷·利奥塔,诺曼·瑞杜斯,汤米·弗拉纳根,小库珀·古丁</p>
-          <p>美国</p>
+          <h1>{{ item.name }}</h1>
+          <p class="actor">{{ item.mediaActor.join(',') }}</p>
+          <p>{{ item.area }}</p>
         </div>
       </li>
     </ul>
@@ -30,19 +30,32 @@ import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-    value: ''
+    value: '',
     }
   },
   computed: {
-    ...mapState('search',[ 'searchList'])
+    ...mapState('search',[ 'searchList']),
   },
   methods: {
     ...mapMutations('search', ['setSearchFilm']),
     ...mapActions('search', ['getSearchFilm']),
     onSearch (value) {
+      // console.log(this.$refs.btnMsg.innerText);
+      
+      if ( this.$refs.btnMsg.innerText === '搜索' ) {
       console.log(1);
       this.getSearchFilm(value)
+      this.value = ''
       console.log(this.value);
+      }else {
+      console.log(this.value)
+      this.$router.replace({
+      path: '/'
+      })
+      console.log(this.$store.state);
+      
+      this.$store.state.searchList = ''
+      }
     }
   }
 }
@@ -51,7 +64,12 @@ export default {
   .searchPage {
     display: flex;
     flex-direction: column;
+    .sHeader {
+      position: fixed;
+      width: 100%;
+    }
     .searchFilmList {
+      margin-top: 54px;
       height: 100px;
       margin-left: 10px;
       margin-right: 10px;
@@ -74,7 +92,14 @@ export default {
             font-weight: 900;
           }
           p {
+            font-size: 12px;
             line-height: 25px;
+          }
+          .actor {
+            width:200px;
+            overflow: hidden;         //超出部分隐藏
+            text-overflow: ellipsis;  //用省略号
+            white-space: nowrap;
           }
         }
       }

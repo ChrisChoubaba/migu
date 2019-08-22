@@ -32,7 +32,7 @@ export default {
           }
         )
         .then(data => {
-          console.log(data)
+          // console.log(data)
           commit('setSearchFilm', data)
         })
     }

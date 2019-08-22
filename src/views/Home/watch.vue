@@ -2,7 +2,7 @@
   <div id="Home" class="watchStyle">
     <div class="home-header">
       <li>
-        <i class="iconfont icon-qianbao-"></i>
+        <i class="iconfont icon-qianbao-" @click="goWallet"></i>
         <span>0元</span>
       </li>
       <li>
@@ -10,7 +10,7 @@
           <i class="iconfont icon-shijian"></i>
         </a>
         <a href="#">
-          <i class="iconfont icon-fangdajing"></i>
+          <i class="iconfont icon-fangdajing" @click="goSearch"></i>
         </a>
       </li>
     </div>
@@ -92,6 +92,17 @@ export default {
     //     pageidx: this.pageidx
     //   })
     // },
+    goWallet () {
+      this.$router.replace({
+        path: '/wallet'
+      })
+    },
+    goSearch () {
+      this.$router.replace({
+        path: '/search'
+      })
+    }
+    ,
     fn1() {
       // console.log(num)
       // console.log(imgList1)
