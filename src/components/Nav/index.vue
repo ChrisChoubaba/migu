@@ -40,17 +40,19 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
+import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
   name: 'Nav',
+  props: {
+    imgs: Array
+  },
   data() {
     return {}
   },
-  computed: {
-    ...mapState('navImg', ['imgList1', 'imgList2', 'imgList3'])
-  },
+
+  computed: { ...mapState('navImg', ['imgList1', 'imgList2', 'imgList3']) },
   methods: {
     initSwiper() {
       var Myswiper1 = new Swiper('.swiper1', {
@@ -65,13 +67,9 @@ export default {
       var Myswiper3 = new Swiper('.swiper3', {
         slidesPerView: 1
       })
-    },
-    ...mapActions('navImg', ['getNavImg', 'getFreeImg'])
+    }
   },
-  created() {
-    this.getNavImg()
-    this.getFreeImg()
-  },
+  created() {},
   updated() {
     this.initSwiper()
   }

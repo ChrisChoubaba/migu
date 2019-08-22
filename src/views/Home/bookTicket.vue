@@ -2,25 +2,17 @@
   <!-- 个人中心页 -->
   <div class="page-home-bookTicket">
     <div class="header" ref="myHeader">
-      <div class="left">
-        <span class="leftContent">深圳</span>
+      <div class="left" to="/city">
+        <router-link to="/city" class="leftContent">深圳</router-link>
         <span class="iconfont icon-huidaodingbu"></span>
       </div>
-      <div class="center">
-        <van-tabs type="card" :class="{'tit': true}">
-          <van-tab title="影片">
-            <van-tabs sticky>
-              <van-tab title="正在热映">
-                <FilmList :films="filmList" />
-              </van-tab>
-              <van-tab title="即将上映">
-                <comingSoon :comingSoon="comingSoonList" />
-              </van-tab>
-            </van-tabs>
-          </van-tab>
-          <van-tab title="影院">内容 2</van-tab>
-        </van-tabs>
+      <div class="header-center">
+        <button @click="curPage = 'yingpian'" :class="{headerActive:curPage === 'yingpian'}">影片</button>
+        <button @click="curPage = 'yingyuan'" :class="{headerActive:curPage === 'yingyuan'}">影院</button>
       </div>
+    </div>
+    <div class="main">
+      <component :is="curPage"></component>
     </div>
   </div>
 </template>
@@ -28,88 +20,139 @@
 <script>
 import FilmList from '../../components/FilmList'
 import comingSoon from '../../components/comingSoon'
+import Cinemas from '../../components/Cinemas'
+import yingpian from '../../components/yingpian'
+import yingyuan from '../../components/yingyuan'
+import BScroll from 'better-scroll'
 
 import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
-      // isFixed: false
+      curPage: 'yingpian',
+      data: []
     }
   },
 
   components: {
     FilmList,
-    comingSoon
+    comingSoon,
+    Cinemas,
+    yingpian,
+    yingyuan
   },
   computed: {
-    ...mapState('film', ['filmList', 'comingSoonList', 'dateList'])
+    ...mapState('film', ['filmList', 'comingSoonList', 'dateList', 'cinemas']),
+    ...mapGetters('film', ['getdate'])
   },
   methods: {
-    ...mapMutations('film', ['setFilmList', 'setComingSoonList']),
-    ...mapActions('film', ['getFilmList', 'getComingSoonList'])
+    ...mapMutations('film', [
+      'setFilmList',
+      'setComingSoonList',
+      'setdate',
+      'setCinemas'
+    ]),
+    ...mapActions('film', ['getFilmList', 'getComingSoonList', 'getCinemas'])
   },
   created() {
     this.getFilmList()
-    this.getComingSoonList()
-  }
+    // this.getComingSoonList({
+    //   pageNo: this.pageNo,
+    //   pageSize: this.pageSize
+    // }),
+    this.getCinemas()
+  },
+  mounted() {}
 }
 </script>
 
 <style lang="scss">
-.header {
-  position: absolute;
-  top: 0;
-  border-bottom: 1px solid #e6e6e6;
-  height: 44px;
-  line-height: 44px;
-  padding: 0;
-  position: relative;
-  // overflow: hidden;
-
-  .left {
-    overflow: hidden;
+.page-home-bookTicket {
+  .header {
+    width: 100%;
     position: absolute;
-    left: 12px;
-    display: inline-block;
+    top: 0;
+    border-bottom: 1px solid #e6e6e6;
+    height: 44px;
+    line-height: 44px;
+    padding: 0;
+    position: relative;
+    // overflow: hidden;
+
+    .left {
+      overflow: hidden;
+      position: absolute;
+      left: 12px;
+      display: inline-block;
+      position: absolute;
+      z-index: 99;
+    }
+    .leftContent {
+      color: #666;
+      font-size: 15px;
+      float: left;
+      background-size: contain;
+    }
+    .icon-huidaodingbu {
+      font-size: 12px;
+      margin-left: 4px;
+      color: #999;
+    }
+    .header-center {
+      margin-left: 126px;
+      line-height: 44px;
+      button {
+        height: 30px;
+        width: 65px;
+        line-height: 30px;
+        border: none;
+        background: none;
+        border-radius: 3px;
+        border: 1px solid #f74444;
+        color: #f74444;
+      }
+      .headerActive {
+        background: #f74444;
+        color: #fff;
+      }
+    }
   }
-  .leftContent {
-    color: #666;
-    font-size: 15px;
-    float: left;
-  }
-  .icon-huidaodingbu {
-    font-size: 12px;
-    margin-left: 4px;
-    color: #999;
-  }
+
   .center {
     width: 100%;
     position: absolute;
     top: 6px;
-  }
-  .tit {
-    > div:first-child {
+    overflow-y: auto;
+    .tit {
+      > div:first-child {
+        width: 160px;
+        margin-left: 108px;
+        text-align: center;
+      }
+      > div:first-child {
+        display: flex;
+        justify-content: center;
+      }
+    }
+    .van-tabs__nav--card {
       width: 160px;
-      margin-left: 108px;
-      text-align: center;
     }
-    > div:first-child {
-      display: flex;
-      justify-content: center;
+    .van-tab {
+      margin: auto;
+    }
+    .van-tabs--card {
+      padding-top: 0 !important;
+    }
+    .van-tabs__content {
+      margin-top: 10px;
+    }
+    .van-tabs__nav {
+      width: 375px;
     }
   }
-  .van-tabs__nav--card {
-    width: 160px;
-  }
-  .van-tab {
-    margin: auto;
-  }
-  .van-tabs--card {
-    padding-top: 0 !important;
-  }
-  .van-tabs__content {
-    margin-top: 10px;
-  }
+}
+.page-home-bookTicket .van-tabs__wrap {
+  padding-right: 0 !important;
 }
 </style>
