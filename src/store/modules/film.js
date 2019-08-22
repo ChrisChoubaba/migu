@@ -55,12 +55,11 @@ export default {
             if (data.code === 200) {
               commit('setFilmList', data)
               // console.log(data)
-              payload.callback()
             }
           })
       }, 1000)
     },
-    getComingSoonList({ commit }, payload) {
+    getComingSoonList({ commit, state, getters }, payload) {
       request
         .get('http://localhost:8080/api/mgw/bsdata4mv/v2/movieListPreview', {
           params: {
@@ -77,9 +76,10 @@ export default {
               type: 'setComingSoonList',
               // dateList: data.body.movieList,
               comingSoonList: data.body.movieList,
-              dateList: data.body.movieList
+              dateList: getters.getdate.concat(getters.dateList)
             })
-            // console.log(data.body.movieList)
+            console.log(getters.getdate.concat(getters.getdate))
+            payload.callback()
           }
         })
     },
@@ -95,21 +95,18 @@ export default {
           },
           {
             transformRequest: data => {
-              //在请求发送到服务器之前对请求的参数做格式转换
-              // 这里研究 咪咕 发现，他需要的是  key=value&key=value 这种格式的数据
-              // nodeId=70022794&pagesize=3&pageidx=1
               let arr = []
               for (let key in data) {
                 arr.push(`${key}=${data[key]}`)
               }
-              // arr =['nodeId=70022794', 'pagesize=3', 'pageidx=1']
+
               return arr.join('&')
             }
           }
         )
         .then(data => {
           commit('setCinemas', data)
-          console.log(data)
+          // console.log(data)
         })
     }
   }

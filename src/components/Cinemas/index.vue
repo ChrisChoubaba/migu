@@ -42,6 +42,7 @@ export default {
     margin-right: 16px;
     color: #ccc;
     text-align: center;
+    line-height: 42px;
   }
 }
 .cinema-main {
