@@ -10,7 +10,8 @@
       <router-link to="/login" class="login-z">
         <div class="login-l">
           <img src="../../assets/images/defaultPhoto.png" alt="">
-          <span>点击登录</span>
+          <span v-if="userName != ''">{{ userName }}</span>
+          <span v-else>点击登录</span>
         </div>
         <span class="iconfont icon-icon"></span>
       </router-link>
@@ -66,7 +67,7 @@
           <span class="iconfont icon-icon"></span>
         </router-link>
         <!-- 在线客服 -->
-        <router-link to="/login" class="ticket">
+        <router-link to="/login" class="ticket" @click="fn2">
           <div class="ticket-l">
             <span class="iconfont icon-dianying"></span>
             <span>约票</span>
@@ -76,6 +77,21 @@
       </div>
   </div>
 </template>
+<script>
+import { mapState } from 'vuex'
+export default {
+  computed: {
+    ...mapState('login',['userName'])
+  },
+  methods: {
+    fn2() {
+    if (window.isLogin != null && window.isLogin != '' ){
+
+    }
+    }
+  }
+}
+</script>
 style-<style lang="scss">
 @import '../../assets/style/common/mixin.scss';
 .page-home-personCenter {
