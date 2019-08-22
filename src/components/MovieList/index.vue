@@ -21,7 +21,7 @@
       <p class="mytitle">影史100个经典角色</p>
       <div class="swiper-container swiper2">
         <div class="swiper-wrapper">
-          <div class="swiper-slide threeStyle" v-for="item in imgList2" :key="item.SRC_CONT_ID">
+          <div class="swiper-slide threeStyle" v-for="item in imgList2" :key="item.imgSrc">
             <div v-if="item.imgSrc">
               <img :src="'http://movie.miguvideo.com/publish/i_www'+ item.imgSrc" alt />
               <p>{{item.name}}</p>
