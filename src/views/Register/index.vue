@@ -9,33 +9,38 @@
       <form class="former">
         <div class="form_item" :class="{active:act_index===1}">
           <input
+            id="phone"
             type="tel"
             placeholder="手机号"
             class="text"
             v-model=" username"
             @focus="act_index=1"
             ref="ipt"
+            @change="checkphone"
           />
         </div>
+        <span :class="explain">{{msgphone}}</span>
         <div class="form_item" :class="{active:act_index===2}">
           <input
-            type="password"
+            :type="pwdType"
             placeholder="密码"
             class="text"
             v-model="password"
             @focus="act_index=2"
             ref="pwd"
           />
+          <em class="iconfont" :class="iconft" @click="iconfot"></em>
         </div>
         <div class="form_item" :class="{active:act_index===3}">
           <input
-            type="password"
+            :type="pdType"
             placeholder="请确认密码"
             class="text"
             @focus="act_index=3"
             ref="pwd2"
             v-model="password2"
           />
+          <em class="iconfont" :class="icnft" @click="icnfot"></em>
         </div>
         <div class="form-btn">
           <input type="submit" value="立即注册" class="submit" @click="isRegister" />
@@ -56,7 +61,13 @@ export default {
       act_index: 1,
       username: '',
       password: '',
-      password2: ''
+      password2: '',
+      pwdType: 'password', //输入的密码类型
+      iconft: 'icon-mimayincang', //隐藏时显示的图片
+      pdType: 'password', //确认密码时的类型
+      icnft: 'icon-mimayincang', //确认密码时隐藏的显示图片
+      msgphone: '', //手机验证信息
+      explain: 'display:block'
     }
   },
   methods: {
@@ -64,10 +75,17 @@ export default {
       let username = this.$refs.ipt.value
       let password = this.$refs.pwd.value
       let password2 = this.$refs.pwd2.value
+      var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/
       let _this = this
       if (!username || !password || !password2) {
         alert('请输入相关信息')
         return
+      }
+      if (this.username == '') {
+        this.msgphone = '手机号不能为空！'
+      }
+      if (!myreg.test(this.username)) {
+        this.msgphone = '请输入有效的手机号码！'
       } else {
         if (password === password2) {
           axios
@@ -89,6 +107,19 @@ export default {
         }
       }
     },
+    checkphone: function() {
+      let username = this.$refs.ipt.value
+      var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/
+      if (this.username == '') {
+        this.msgphone = '手机号不能为空！'
+        this.explain =
+          this.explain == 'display:block' ? 'display:block' : 'display:none'
+      } else if (!myreg.test(this.username)) {
+        this.msgphone = '请输入有效的手机号码！'
+      } else {
+        this.msgphone = ''
+      }
+    },
     enroll() {
       this.$router.push({
         path: 'login'
@@ -98,6 +129,20 @@ export default {
       this.$router.push({
         path: 'login'
       })
+    },
+    iconfot() {
+      this.pwdType = this.pwdType === 'password' ? 'text' : 'password'
+      this.iconft =
+        this.iconft == 'icon-mimayincang'
+          ? 'icon-mimaxianshi'
+          : 'icon-mimayincang'
+    },
+    icnfot() {
+      this.pdType = this.pdType === 'password' ? 'text' : 'password'
+      this.icnft =
+        this.icnft == 'icon-mimayincang'
+          ? 'icon-mimaxianshi'
+          : 'icon-mimayincang'
     }
   }
 }
@@ -151,12 +196,29 @@ export default {
       .active {
         border-bottom: 1px solid #2e8fd7;
       }
+      span {
+        color: red;
+        font-size: 1rem;
+      }
     }
     .form_item {
       padding: 0 0.625rem;
       line-height: 3.125rem;
       border-bottom: 1px solid #dbdddf;
       margin-bottom: 0.275rem;
+      position: relative;
+      em {
+        margin-top: 13px;
+        position: absolute;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-align: center;
+        line-height: 1.5;
+        top: 0;
+        right: 0;
+        color: rgba(0, 0, 0, 0.25);
+      }
+
       .text {
         width: 100%;
         height: 1.5rem;

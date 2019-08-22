@@ -14,19 +14,21 @@
             type="tel"
             placeholder="手机号/邮箱/用户名"
             class="text"
-            v-model="text"
+            v-model="username"
             @focus="act_index=1"
+            ref="ipt"
           />
         </div>
         <div class="form_item" :class="{active:act_index===2}">
           <input
-            type="password"
+            :type="pwdType"
             placeholder="密码"
             class="text"
             v-model="password"
             @focus="act_index=2"
+            ref="pwd"
           />
-          <em class></em>
+          <em class="iconfont" :class="iconft" @click="iconfot"></em>
         </div>
         <!-- 登录按钮 -->
         <div class="form_btn">
@@ -41,7 +43,10 @@
         <a>忘记密码</a>
       </div>
       <div class="thirty-party">
-        <a class="hpass"></a>
+        <a
+          class="hpass"
+          href="https://passport.migu.cn/andPassLogin?sourceid=203004&appType=0&relayState=login&callbackURL=http%3A%2F%2Fmovie.miguvideo.com%2Flovev%2FmiguMovie%2FpersonCenter%2Fmine%2Fmine.jsp"
+        ></a>
       </div>
     </footer>
   </div>
@@ -53,9 +58,13 @@ export default {
   data() {
     return {
       // local: 'false',
+      ifDisplay: 'false',
       act_index: 1,
-      text: '', //账号的value
-      password: '' //密码
+      username: '', //账号的value
+      password: '', //密码
+      dataes: [],
+      pwdType: 'password', //输入的密码类型
+      iconft: 'icon-mimayincang' //隐藏时显示的图片
     }
   },
   methods: {
@@ -72,6 +81,13 @@ export default {
       this.$router.push({
         path: 'personCenter'
       })
+    },
+    iconfot() {
+      this.pwdType = this.pwdType === 'password' ? 'text' : 'password'
+      this.iconft =
+        this.iconft == 'icon-mimayincang'
+          ? 'icon-mimaxianshi'
+          : 'icon-mimayincang'
     }
   }
 }
@@ -131,6 +147,7 @@ export default {
       margin-top: 0.625rem;
       padding: 0 1rem;
       .form_item {
+        position: relative;
         font-size: 1rem;
         padding: 0 0.625rem;
         line-height: 3.125rem;
@@ -150,12 +167,14 @@ export default {
       }
       em {
         margin-top: 13px;
-        position: relative;
+        position: absolute;
         width: 1.5rem;
         height: 1.5rem;
+        text-align: center;
+        line-height: 1.5;
         top: 0;
         right: 0;
-        background: url();
+        color: rgba(0, 0, 0, 0.25);
       }
       .form_btn {
         margin-top: 1.875rem;
