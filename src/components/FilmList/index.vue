@@ -23,7 +23,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       finished: false,
       loading: false
@@ -33,7 +33,7 @@ export default {
     films: Array
   },
   methods: {
-    fn1() {
+    fn1 () {
       setTimeout(() => {
         this.finished = true
         this.loading = false
@@ -42,7 +42,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss">
 @import '../../assets/style/common/mixin.scss';

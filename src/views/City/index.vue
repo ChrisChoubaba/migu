@@ -13,7 +13,7 @@
           v-for="item in cities"
           :key="item.cityName"
           :ref="'item-' + item.cityName"
-          @click="chooseCity"
+          @click="chooseCity(item.cityCode,item.cityName)"
         >
           <p v-if="item.cityCode" class="title1" :id="item.cityCode">{{ item.cityName }}</p>
           <p v-else class="title" :id="item.cityName">{{ item.cityName }}</p>
@@ -32,41 +32,52 @@
 import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 
 export default {
-  // data(){
-  //   return{
-
-  //   }
-  // },
+  data () {
+    return {
+      // curCity: {}
+    }
+  },
   methods: {
     ...mapActions('city', ['getCities']),
-    ...mapMutations('city', ['setCities']),
-    fn1(zm) {
+    ...mapMutations('city', ['setCities', 'setName']),
+    fn1 (zm) {
       // console.log(this.$refs[`item-${zm}`][0])
       let itemBox = this.$refs[`item-${zm}`][0]
       let offsetTop = itemBox.offsetTop
       document.documentElement.scrollTop = offsetTop
     },
-    onClickLeft() {
+    onClickLeft () {
       this.$router.back()
     },
-    chooseCity(event) {
+    chooseCity (cityCode, cityName) {
       // console.log(this.$refs[])
-      if (event) {
-        // alert(event.target.innerText)
-        console.log(event.target)
-      }
+      console.log(cityCode, cityName)
+      let obj1 = {}
+      obj1.cityCode = cityCode
+      obj1.cityName = cityName
+      localStorage.setItem('hello', JSON.stringify(obj1))
+      this.setName({ curCity: obj1 })
+      this.$router.replace('/bookticket')
+      // this.curCity.cityName = cityName
+      // console.log(this.curCity)
+      // if (event) {
+      //   // alert(event.target.innerText)
+      //   console.log(event.target)
+      //   window.curCity.name = event.target.innerText
+      //   // this.curCity.cityCode = event ta
+      //   console.log(window.curCity)
+      // }
     }
   },
-  created() {
+  created () {
     this.getCities()
   },
   computed: {
-    ...mapState('city', ['cities']),
+    ...mapState('city', ['cities', 'curCity']),
     ...mapGetters('city', ['zm'])
   }
 }
 </script>
-
 
 <style lang='scss'>
 .city-header {

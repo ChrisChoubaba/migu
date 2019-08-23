@@ -39,7 +39,7 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 import request from '../../utils/request'
 export default {
   name: 'Home',
-  data() {
+  data () {
     return {
       nodeId: 70022794,
       // nodeId2: 70022795,
@@ -62,7 +62,7 @@ export default {
     ...mapState('navImg', ['imgList1', 'imgList2', 'imgList3'])
   },
   watch: {
-    nodeId(newVal, oldVal) {
+    nodeId (newVal, oldVal) {
       // console.log(this.nodeId)
       this.pageidx = 0
       this.pagesize = 3
@@ -101,9 +101,8 @@ export default {
       this.$router.replace({
         path: '/search'
       })
-    }
-    ,
-    fn1() {
+    },
+    fn1 () {
       // console.log(num)
       // console.log(imgList1)
       this.pageidx = 0
@@ -117,7 +116,7 @@ export default {
         pageidx: this.pageidx
       })
     },
-    fn2() {
+    fn2 () {
       this.pageidx = 0
       this.pageidx++
       this.nodeId = 70022795
@@ -130,7 +129,7 @@ export default {
         pageidx: this.pageidx
       })
     },
-    fn3() {
+    fn3 () {
       this.pageidx = 0
       this.pageidx++
       this.nodeId = 70035127
@@ -143,7 +142,7 @@ export default {
         pageidx: this.pageidx
       })
     },
-    fn4() {
+    fn4 () {
       this.pageidx = 0
       this.pageidx++
       this.nodeId = 70027030
@@ -156,7 +155,7 @@ export default {
         pageidx: this.pageidx
       })
     },
-    fn5() {
+    fn5 () {
       this.pageidx = 0
       this.pageidx++
       this.nodeId = 70022797
@@ -203,12 +202,12 @@ export default {
     //     })
     // }
   },
-  created() {
+  created () {
     // this.loadMovieList()
     this.fn1()
   },
-  mounted() {},
-  updated() {}
+  mounted () {},
+  updated () {}
 }
 </script>
 <style lang="scss" >

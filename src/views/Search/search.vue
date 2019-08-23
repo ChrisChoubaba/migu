@@ -28,30 +28,29 @@
 <script>
 import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
-    value: '',
+      value: ''
     }
   },
   computed: {
-    ...mapState('search',[ 'searchList']),
+    ...mapState('search', [ 'searchList'])
   },
   methods: {
     ...mapMutations('search', ['setSearchFilm']),
     ...mapActions('search', ['getSearchFilm']),
     onSearch (value) {
       // console.log(this.$refs.btnMsg.innerText);
-      //当按钮的值为搜索时，执行数据请求，当点击取消时，跳转页面
-      if ( this.$refs.btnMsg.innerText === '搜索' ) {
-      this.getSearchFilm(value)
-      this.value = ''
-      console.log(this.value);
-      }else {
-      console.log(this.value)
-      this.$router.replace({
-      path: '/'
-      })
-
+      // 当按钮的值为搜索时，执行数据请求，当点击取消时，跳转页面
+      if (this.$refs.btnMsg.innerText === '搜索') {
+        this.getSearchFilm(value)
+        this.value = ''
+        console.log(this.value)
+      } else {
+        console.log(this.value)
+        this.$router.replace({
+          path: '/'
+        })
       }
     }
   }

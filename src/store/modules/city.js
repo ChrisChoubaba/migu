@@ -4,10 +4,10 @@ export default {
   namespaced: true,
   state: {
     cities: [],
-    curCity: []
+    curCity: {}
   },
   getters: {
-    zm(state) {
+    zm (state) {
       let pys = []
       state.cities.forEach(item => {
         if (item.cityCode === '') {
@@ -18,15 +18,15 @@ export default {
     }
   },
   mutations: {
-    setCities(state, payload) {
+    setCities (state, payload) {
       state.cities = payload.cities
     },
-    setName(state, payload) {
+    setName (state, payload) {
       state.curCity = payload.curCity
     }
   },
   actions: {
-    getCities({ commit }) {
+    getCities ({ commit }) {
       request
         .post('http://localhost:8080/api/mta-service/data/migu/cities.jsp')
         .then(res => {

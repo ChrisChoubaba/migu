@@ -81,13 +81,13 @@
 import { mapState } from 'vuex'
 export default {
   computed: {
-    ...mapState('login',['userName'])
+    ...mapState('login', ['userName'])
   },
   methods: {
-    fn2() {
-    if (window.isLogin != null && window.isLogin != '' ){
+    fn2 () {
+      if (window.isLogin != null && window.isLogin != '') {
 
-    }
+      }
     }
   }
 }

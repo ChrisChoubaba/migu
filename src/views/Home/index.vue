@@ -11,7 +11,7 @@ export default {
   components: {
     Tabbar
   },
-  data() {
+  data () {
     return {
       tabs: [
         { id: 1, name: '看片', icon: 'icon-watch', href: '/watch' },

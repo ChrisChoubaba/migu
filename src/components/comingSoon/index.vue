@@ -34,7 +34,7 @@ export default {
     comingSoon: Array,
     getdate: Array
   },
-  data() {
+  data () {
     return {
       finished: false,
       loading: false,
@@ -55,7 +55,7 @@ export default {
       'setCinemas'
     ]),
     ...mapActions('film', ['getFilmList', 'getComingSoonList', 'getCinemas']),
-    loadFilmList() {
+    loadFilmList () {
       // console.log(this.$el.scrollTop)
       this.pageNo++
       this.finished = false
@@ -152,4 +152,3 @@ export default {
   }
 }
 </style>
-

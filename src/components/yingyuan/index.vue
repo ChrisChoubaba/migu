@@ -2,7 +2,6 @@
   <Cinemas :cinemas="cinemas" />
 </template>
 
-
 <script>
 import Cinemas from '../../components/Cinemas'
 

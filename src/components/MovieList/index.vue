@@ -56,13 +56,13 @@ export default {
   props: {
     imgs: Array
   },
-  data() {
+  data () {
     return {}
   },
 
   computed: { ...mapState('navImg', ['imgList1', 'imgList2', 'imgList3']) },
   methods: {
-    initSwiper() {
+    initSwiper () {
       var Myswiper1 = new Swiper('.swiper1', {
         loop: true,
         autoplay: { disableOnInteraction: false },
@@ -80,8 +80,8 @@ export default {
       })
     }
   },
-  created() {},
-  updated() {
+  created () {},
+  updated () {
     this.initSwiper()
   }
 }
@@ -155,4 +155,3 @@ export default {
   }
 }
 </style>
-

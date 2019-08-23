@@ -16,7 +16,7 @@ export default {
   },
   getters: {},
   mutations: {
-    setNavImg(state, payload) {
+    setNavImg (state, payload) {
       state.imgList1 = payload.imgList1
       state.imgList2 = payload.imgList2 || []
       state.imgList3 = payload.imgList3 || []
@@ -25,12 +25,12 @@ export default {
       // console.log(state.imgList1, state.imgList2, state.imgList3)
       // console.log(state.imgList[0].list[0].imgSrc)
     },
-    setVideo(state, payload) {
+    setVideo (state, payload) {
       state.Videos = payload.list
     }
   },
   actions: {
-    getNavImg({ commit, state }, payload) {
+    getNavImg ({ commit, state }, payload) {
       Toast.loading({ duration: 0, message: '加载中' })
       request
         .post(
@@ -42,7 +42,7 @@ export default {
           },
           {
             transformRequest: data => {
-              //在请求发送到服务器之前对请求的参数做格式转换
+              // 在请求发送到服务器之前对请求的参数做格式转换
               // 这里研究 咪咕 发现，他需要的是  key=value&key=value 这种格式的数据
               // nodeId=70022794&pagesize=3&pageidx=1
               let arr = []
@@ -57,13 +57,13 @@ export default {
         .then(res => {
           // console.log(res)
           Toast.clear()
-          if (res.length == 2) {
+          if (res.length === 2) {
             commit({
               type: 'setNavImg',
               imgList1: res[0].list,
               imgList2: res[1].list
             })
-          } else if (res.length == 1) {
+          } else if (res.length === 1) {
             commit({
               type: 'setNavImg',
               imgList1: res[0].list
@@ -78,7 +78,7 @@ export default {
           }
         })
     },
-    getVideo({ commit }, payload) {
+    getVideo ({ commit }, payload) {
       request
         .post(
           'http://localhost:8080/api/lovev/miguMovie/data/seeFilmData.jsp',
@@ -90,7 +90,7 @@ export default {
           },
           {
             transformRequest: data => {
-              //在请求发送到服务器之前对请求的参数做格式转换
+              // 在请求发送到服务器之前对请求的参数做格式转换
               // 这里研究 咪咕 发现，他需要的是  key=value&key=value 这种格式的数据
               // nodeId=70022794&pagesize=3&pageidx=1
               let arr = []
