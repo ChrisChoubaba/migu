@@ -41,9 +41,8 @@ export default {
     ...mapActions('search', ['getSearchFilm']),
     onSearch (value) {
       // console.log(this.$refs.btnMsg.innerText);
-      
+      //当按钮的值为搜索时，执行数据请求，当点击取消时，跳转页面
       if ( this.$refs.btnMsg.innerText === '搜索' ) {
-      console.log(1);
       this.getSearchFilm(value)
       this.value = ''
       console.log(this.value);
@@ -52,9 +51,7 @@ export default {
       this.$router.replace({
       path: '/'
       })
-      console.log(this.$store.state);
-      
-      this.$store.state.searchList = ''
+
       }
     }
   }

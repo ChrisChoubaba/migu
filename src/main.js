@@ -8,6 +8,7 @@ import { Tab, Tabs, List, Cell, Toast, Search } from 'vant'
 // import 'element-ui/lib/theme-chalk/index.css'
 
 import 'vant/lib/index.css'
+import './assets/style/iconfont.css'
 
 window.isLogin = '' // 登录状态
 

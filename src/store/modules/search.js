@@ -25,9 +25,12 @@ export default {
             transformRequest: data => {
               let arr = []
               for (let key in data) {
-                arr.push(`${key}=${data[key]}`)
+                arr.push(`${key}=${encodeURIComponent(data[key])}`)
               }
               return arr.join('&')
+            },
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             }
           }
         )

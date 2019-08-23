@@ -2,7 +2,7 @@
 export default {
   namespaced: true,
   state: {
-    Authorization: sessionStorage.getItem('Authorization') ?  sessionStorage.getItem('Authorization') : '',
+    Authorization: sessionStorage.getItem('Authorization') ? sessionStorage.getItem('Authorization') : '',
     userName: sessionStorage.getItem('userName') ? sessionStorage.getItem('userName') : ''
   },
   mutations: {
