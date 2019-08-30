@@ -101,6 +101,8 @@ export default {
     goLogin () {
       let _this = this
       // console.log();
+      console.log(555);
+      
       if (this.loginForm.username === '' || this.loginForm.password === '') {
         alert('账号或密码不能为空')
       } else {

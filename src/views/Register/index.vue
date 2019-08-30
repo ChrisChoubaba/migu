@@ -6,7 +6,7 @@
       <a class="enroll" @click="enroll">登录</a>
     </header>
     <div class="con">
-      <form class="former">
+      <form class="former" action="javascript:;">
         <div class="form_item" :class="{active:act_index===1}">
           <input
             id="phone"
@@ -93,13 +93,14 @@ export default {
               username,
               password
             })
-            .then(function (res) {
+            .then(res => {
               _this.$toast({
                 message: '注册成功'
               })
-              _this.$router.replace({
-                path: '/login'
-              })
+              // _this.$router.push({
+              //   path: '/login'
+              // })
+              _this.$router.go(-1)
             })
             .catch(function (error) {
               console.log(error)
@@ -128,11 +129,15 @@ export default {
       this.$router.push({
         path: 'login'
       })
+      console.log(333);
+      
     },
     iconfont () {
       this.$router.push({
         path: 'login'
       })
+      console.log(444);
+      
     },
     iconfot () {
       this.pwdType = this.pwdType === 'password' ? 'text' : 'password'
